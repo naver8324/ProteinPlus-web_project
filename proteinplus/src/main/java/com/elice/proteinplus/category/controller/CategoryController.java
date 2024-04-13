@@ -78,8 +78,6 @@ public class CategoryController {
     //카테고리 수정
     @PutMapping("/edit")
     public Category updateParentCategory(UpdateCategoryDTO updateCategoryDTO){
-        log.info("updateCategoryDTO.getId() = {}", updateCategoryDTO.getId());
-        log.info("updateCategoryDTO.getName() = {}", updateCategoryDTO.getName());
         Category updatedCategory = categoryService.updateCategory(updateCategoryDTO);
 
         return updatedCategory;

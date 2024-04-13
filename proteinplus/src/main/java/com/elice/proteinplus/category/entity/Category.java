@@ -28,15 +28,13 @@ public class Category {
     private Category parent;
 
 
-    // 다대다 (product <-> category)
-
     public void create(String name, Category parent){
         this.name = name;
         this.parent = parent;
     }
 
-    public void update(String name){
-        this.name = name;
+    public void update(UpdateCategoryDTO updateCategoryDTO){
+        this.name = updateCategoryDTO.getName();
     }
 
 }

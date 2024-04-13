@@ -16,12 +16,12 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findAllCategoryByParentIdAscNullsFirstCategoryIdAsc();
 
     //부모 카테고리 조회
-    @Query("select c.name from Category c left join c.parent p where p.id is null order by c.id asc")
-    List<String> findParentCategory();
+    @Query("select c from Category c left join c.parent p where p.id is null order by c.id asc")
+    List<Category> findParentCategory();
 
     //자식 카테고리 조회
-    @Query("select c.name from Category c left join c.parent p where p.id = :parent_id order by c.id asc")
-    List<String> findChildCategory(@Param("parent_id") Long parent_id);
+    @Query("select c from Category c left join c.parent p where p.id = :parent_id order by c.id asc")
+    List<Category> findChildCategory(@Param("parent_id") Long parent_id);
 
     @Query("select c from Category c left join c.parent p where p.id = :parent_id order by c.id asc")
     List<Category> findCategoryByParentId(@Param("parent_id") Long parent_id);
@@ -35,5 +35,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     //category_id를 이용하여 부모 카테고리 id 조회
     @Query("select p.id from Category c left join c.parent p where c.id = :category_id")
     Long findParentCategoryId(@Param("category_id") Long child_id);
+
+    //카테고리 이름 중복체크
+    @Query("select c.name from Category c left join c.parent p where c.name = :name or p.name = :name")
+    String duplicateCategoryName(@Param("name") String name);
 
 }
